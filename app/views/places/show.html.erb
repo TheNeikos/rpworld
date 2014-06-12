@@ -1,0 +1,56 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Region:</strong>
+  <%= @place.region_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @place.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @place.description %>
+</p>
+
+<p>
+  <strong>Creator:</strong>
+  <%= @place.user.displayname%>
+</p>
+
+<h1>Listing replies</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Place</th>
+      <th>User</th>
+      <th>Character</th>
+      <th>Body</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @place.replies.each do |reply| %>
+      <tr>
+        <td><%= reply.place_id %></td>
+        <td><%= reply.user.displayname %></td>
+        <td><%= reply.character.name if reply.character.present?%></td>
+        <td><%= reply.body %></td>
+        <td><%= link_to 'Show', region_place_reply_path(@region, @place, reply)%></td>
+        <td><%= link_to 'Edit', edit_region_place_reply_path(@region, @place, reply) %></td>
+        <td><%= link_to 'Destroy', region_place_reply_path(@region, @place, reply), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Reply', new_region_place_reply_path(@region, @place)%>
+
+<%= link_to 'Edit', edit_region_place_path(@region, @place) %> |
+<%= link_to 'Back', region_path(@region) %>

@@ -1,0 +1,11 @@
+<%@users.each do |u|%>
+    <%= u.inspect%><br/>
+<%end%>
+
+<%= form_for :user, :url => login_users_url do |t|%>
+  <%= t.label :email%>
+  <%= t.text_field :email%>
+  <%= t.label :password%>
+  <%= t.password_field :password%>
+  <%= t.submit "Sign in"%>
+<%end%>
