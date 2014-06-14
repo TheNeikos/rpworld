@@ -1,15 +1,23 @@
-angular.module("RpForum").config(["$stateRouter",
+angular.module("RpForum").config(["$stateProvider",
 ($stateProvider)->
     $stateProvider.state("users", {
         url: "/users"
-        templateUrl: "/assets/templates/users/index.html"
+        templateUrl: "/assets/users/index.html"
         resolve: {
             users: ["User",(User)->
-                User.all()
+                User.getList()
             ]
         }
-        controller: ["$scope", ($scope, users)->
+        controller: ["$scope", "users", ($scope, users)->
             $scope.users = users
         ]
+    }).state("users.show", {
+        url: "/:id"
+        templateUrl: "/assets/users/show.html"
+        resolve: {
+            user: ["User", "$stateParams", (User, $stateParams)->
+                User.one($stateParams.id)
+            ]
+        }
     })
 ])
