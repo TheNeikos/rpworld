@@ -1,5 +1,8 @@
+<h2>User List</h2>
 <ul>
     <li ng-repeat="user in users">
-        <h5>{{user.displayname}}</h5>
+        <a ui-sref="users.show({id:user.id})">
+            <strong>{{user.displayname}}</strong>
+        </a>
     </li>
 </ul>
