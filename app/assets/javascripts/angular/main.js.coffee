@@ -1,6 +1,9 @@
 window.angular.module("RpForum", ["restangular", "ui.router"])
-.config(["RestangularProvider", "$urlRouterProvider",
-(RestangularProvider, $urlRouterProvider)->
+.config(["RestangularProvider", "$urlRouterProvider", "$locationProvider"
+(RestangularProvider, $urlRouterProvider, $locationProvider)->
+
+    $locationProvider.html5Mode(true)
+
     $urlRouterProvider.otherwise("/")
 
     RestangularProvider.setBaseUrl('/api')
@@ -10,6 +13,9 @@ window.angular.module("RpForum", ["restangular", "ui.router"])
         # signature is (name, operation, path, params, headers, elementToPost)
         user.addRestangularMethod('login', 'post', 'login')
         return user
+
+
+
 ]).run(["$rootScope", ($rootScope)->
     $rootScope.$on('$stateChangeStart',(event, toState, toParams, fromState, fromParams)->
       console.log('$stateChangeStart to '+toState.to+'- fired when the transition begins. toState,toParams : \n',
