@@ -1,7 +1,7 @@
 <h2>User List</h2>
 <ul>
     <li ng-repeat="user in users">
-        <a ui-sref="users.show({id:user.id})">
+        <a ui-sref="user({id:user.id})">
             <strong>{{user.displayname}}</strong>
         </a>
     </li>

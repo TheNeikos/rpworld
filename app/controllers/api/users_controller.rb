@@ -9,7 +9,7 @@ module Api
 
     def create
       if @user.save
-        redirect_to :users
+        redirect_to :me
       else
         render :new
       end
@@ -22,15 +22,21 @@ module Api
       puts login_params.inspect
       if @user = User.find_by_email(login_params[:email]).authenticate(login_params[:password]) then
         session[:user_id] = @user.id
-        flash[:success] = "Successfully signed in #{@user.displayname}."
-        redirect_to :regions
+        render :me
       else
         flash.now[:error] = "Could not sign in"
+        # TODO: Add json error response
       end
-
     end
 
     def logout
+      if logged_in?
+        session[:user_id] = nil
+      end
+    end
+
+    def me
+      render :me if logged_in?
     end
 
     private
