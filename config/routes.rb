@@ -5,6 +5,7 @@ Rails.application.routes.draw do
             collection do
                 post 'logout'
                 post 'login'
+                get 'me'
             end
         end
 
@@ -17,6 +18,7 @@ Rails.application.routes.draw do
         end
     end
 
+    get "*path" => "various#index"
     root "various#index"
 
     # The priority is based upon order of creation: first created -> highest priority.
