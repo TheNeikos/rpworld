@@ -29,28 +29,20 @@ module Api
     def create
       @reply = @place.replies.new(reply_params)
       @reply.user = current_user
-      respond_to do |format|
-        if @reply.save
-          format.html { redirect_to [@region, @place, @reply], notice: 'Reply was successfully created.' }
-          format.json { render :show, status: :created, location: @reply }
-        else
-          format.html { render :new }
-          format.json { render json: @reply.errors, status: :unprocessable_entity }
-        end
+      if @reply.save
+        render :show, status: :created, location: @reply
+      else
+        render json: @reply.errors, status: :unprocessable_entity
       end
     end
 
     # PATCH/PUT /replies/1
     # PATCH/PUT /replies/1.json
     def update
-      respond_to do |format|
-        if @reply.update(reply_params)
-          format.html { redirect_to [@region, @place, @reply], notice: 'Reply was successfully updated.' }
-          format.json { render :show, status: :ok, location: @reply }
-        else
-          format.html { render :edit }
-          format.json { render json: @reply.errors, status: :unprocessable_entity }
-        end
+      if @reply.update(reply_params)
+        render :show, status: :ok, location: @reply
+      else
+        render json: @reply.errors, status: :unprocessable_entity
       end
     end
 
@@ -58,10 +50,7 @@ module Api
     # DELETE /replies/1.json
     def destroy
       @reply.destroy
-      respond_to do |format|
-        format.html { redirect_to replies_url, notice: 'Reply was successfully destroyed.' }
-        format.json { head :no_content }
-      end
+      head :no_content
     end
 
     private
