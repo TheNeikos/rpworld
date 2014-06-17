@@ -11,7 +11,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'bcrypt'
 gem 'cancancan', '~> 1.8'
-gem 'paperclip', '~> 4.1'
+gem 'paperclip', :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'angularjs-rails'
 gem 'angular-ui-bootstrap-rails', '~> 0.11.0'
 gem 'bootstrap-sass', '~> 3.1.1.1'
