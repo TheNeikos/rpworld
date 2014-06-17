@@ -28,28 +28,20 @@ module Api
     def create
       @place = @region.places.new(place_params)
       @place.user = current_user
-      respond_to do |format|
-        if @place.save
-          format.html { redirect_to [@region, @place], notice: 'Place was successfully created.' }
-          format.json { render :show, status: :created, location: @place }
-        else
-          format.html { render :new }
-          format.json { render json: @place.errors, status: :unprocessable_entity }
-        end
+      if @place.save
+        render :show, status: :created, location: @place
+      else
+        render json: @place.errors, status: :unprocessable_entity
       end
     end
 
     # PATCH/PUT /places/1
     # PATCH/PUT /places/1.json
     def update
-      respond_to do |format|
-        if @place.update(place_params)
-          format.html { redirect_to [@region, @place], notice: 'Place was successfully updated.' }
-          format.json { render :show, status: :ok, location: @place }
-        else
-          format.html { render :edit }
-          format.json { render json: @place.errors, status: :unprocessable_entity }
-        end
+      if @place.update(place_params)
+        render :show, status: :ok, location: @place
+      else
+        render json: @place.errors, status: :unprocessable_entity
       end
     end
 
@@ -57,10 +49,7 @@ module Api
     # DELETE /places/1.json
     def destroy
       @place.destroy
-      respond_to do |format|
-        format.html { redirect_to region_url @region, notice: 'Place was successfully destroyed.' }
-        format.json { head :no_content }
-      end
+      head :no_content
     end
 
     private
